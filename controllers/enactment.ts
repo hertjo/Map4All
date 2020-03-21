@@ -3,11 +3,11 @@ import { HttpServer } from '../server/httpServer';
 import { Request, Response } from 'restify';
 import { regulationService } from '../services/regulation';
 import { enactmentService } from '../services/Enactment';
-import { Regulation } from '../models/regulation';
 
 export class EnactmentController implements Controller {
     public initialize(httpServer: HttpServer): void {
         // TODO
+        httpServer.get('state1/:stateId', this.getById.bind(this));
         httpServer.get('state/:stateId', this.getAllbyStateEnactmentId.bind(this));
         // httpServer.get('district/:enactmentId', this.getAllbyStateEnactmentId.bind(this));
         // httpServer.post('regulation/:id/', this.create.bind(this));
@@ -18,6 +18,11 @@ export class EnactmentController implements Controller {
         const enactment = await enactmentService.getByStateId(req.params.stateId);
         const regulationList = await regulationService.getAllbyEnactmentId(enactment.id);
         res.send(regulationList ? 200 : 404, regulationList);
+    }
+
+    private async getById(req: Request, res: Response): Promise<void> {
+        const enactment = await enactmentService.getByStateId(req.params.stateId);
+        res.send(enactment ? 200 : 404, enactment);
     }
 
     // private async create(req: Request, res: Response): Promise<void> {

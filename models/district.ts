@@ -1,10 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
-@Entity("landkreis")
+@Entity("landkreisliste")
 export class District {
     @PrimaryGeneratedColumn({ name: "landkreisID" })
     public id: number;
 
-    @Column()
+    @Column({ name: "landkreis" })
     public name: string;
 }
