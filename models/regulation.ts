@@ -14,10 +14,10 @@ export class Regulation {
     public specDate: Date;
 
     @ManyToOne(() => Enactment, (enactment: Enactment) => enactment.id)
-    @JoinColumn({ name: "erlassID" })
+    @Column({ name: "erlassID" })
     public enactmentId: number;
 
     @OneToMany(() => RegulationClass, (regulationClass: RegulationClass) => regulationClass.id)
-    @JoinColumn({ name: "klassenID" })
+    @Column({ name: "klassenID" })
     public regulationClassId: number;
 }

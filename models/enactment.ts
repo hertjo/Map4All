@@ -20,10 +20,10 @@ export class Enactment {
     public url: string;
 
     @ManyToOne(() => State, (state: State) => state.id)
-    @JoinColumn({ name: "bundeslandID" })
+    @Column({ name: "bundeslandID" })
     public stateId: string;
 
     @ManyToOne(() => District, (district: District) => district.id)
-    @JoinColumn({ name: "landkreisID" })
+    @Column({ name: "landkreisID" })
     public districtId: string;
 }

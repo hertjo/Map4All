@@ -5,7 +5,7 @@ import { regulationClassService } from '../services/regulationClass';
 
 export class RegulationController implements Controller {
     public initialize(httpServer: HttpServer): void {
-        httpServer.get('regulationClass', this.getAll.bind(this));
+        httpServer.get('regulation-class', this.getAll.bind(this));
         // httpServer.post('regulation/:id/', this.create.bind(this));
         // httpServer.del('regulation/:id/', this.remove.bind(this));
     }
