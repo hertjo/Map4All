@@ -36,6 +36,8 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
+.env
+
 # Node.js
 node_modules
 bunyan
@@ -72,6 +74,8 @@ atob.cmd
 esparse
 esparse.cmd
 esvalidate
+sha.cmd
+sha.js.cmd
 esvalidate.cmd
 highlight
 highlight.cmd
@@ -92,3 +96,5 @@ ts-node.cmd
 typeorm
 which
 which.cmd
+sha.js
+sha.js

@@ -1,7 +1,22 @@
-import { Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import { Enactment } from "./enactment";
+import { RegulationClass } from "./regulationClass";
 
-@Entity()
+@Entity("massnahme")
 export class Regulation {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn({ name: "massnahmenID" })
     public id: number;
+
+    @Column()
+    public info: string;
+
+    @ManyToOne(() => Enactment, (enactment: Enactment) => enactment.id)
+    @JoinColumn()
+    @Column({ name: "erlassID" })
+    public enactmentId: number;
+
+    @OneToMany(() => RegulationClass, (regulationClass: RegulationClass) => regulationClass.id)
+    @JoinColumn()
+    @Column({ name: "klassenID" })
+    public regulationClassId: number;
 }

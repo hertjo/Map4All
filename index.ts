@@ -1,7 +1,9 @@
 import 'reflect-metadata';
+
 import { ApiServer } from './server/index';
 import { DatabaseProvider } from './database/index';
 
+// TODO Credentials from env
 DatabaseProvider.configure({
     type: process.env.DATABASE_TYPE as any || 'mysql',
     database: process.env.DATABASE_NAME || 'estoque',

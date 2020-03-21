@@ -1,9 +1,12 @@
 import { Connection, createConnection } from 'typeorm';
 import { Regulation } from '../models/regulation';
-
+import { Enactment } from '../models/enactment';
+import { District } from '../models/district';
+import { RegulationClass } from '../models/regulationClass';
+import { State } from '../models/state';
 
 export interface DatabaseConfiguration {
-    type: 'postgres' | 'mysql' | 'mssql';
+    type: 'mysql';
     host: string;
     port: number;
     username: string;
@@ -36,7 +39,11 @@ export class DatabaseProvider {
                 ssl
             },
             entities: [
-                Regulation
+                Regulation,
+                Enactment,
+                District,
+                State,
+                RegulationClass
             ],
             autoSchemaSync: true
         } as any); // as any to prevent complaining about the object does not fit to MongoConfiguration, which we won't use here
