@@ -26,7 +26,7 @@ export class RegulationService {
     // TODO check also date in regulation
     public async getAllbyEnactmentId(enactmentId: number): Promise<Array<Regulation>> {
         const connection = await DatabaseProvider.getConnection();
-        return await connection.getRepository(Regulation).find({ where: { "erlassId": enactmentId } });
+        return await connection.getRepository(Regulation).find({ where: { "erlassID": enactmentId } });
     }
 
     // public async delete(id: number): Promise<void> {
