@@ -8,7 +8,7 @@ export class EnactmentController implements Controller {
     public initialize(httpServer: HttpServer): void {
         httpServer.get('enactment/state', this.getAllByState.bind(this));
         httpServer.get('enactment/state/:stateId', this.getByStateId.bind(this));
-        httpServer.get('enactment/state-regulations/:stateId', this.getAllbyStateEnactmentId.bind(this));
+        httpServer.get('enactment/state/regulations/:stateId', this.getAllbyStateEnactmentId.bind(this));
         // TODO endpoints for districts
         httpServer.post('enactment', this.create.bind(this));
         //httpServer.del('enactment', this.remove.bind(this));
@@ -26,6 +26,7 @@ export class EnactmentController implements Controller {
 
     private async getAllbyStateEnactmentId(req: Request, res: Response): Promise<void> {
         const enactment = await enactmentService.getByStateId(req.params.stateId);
+        console.log(enactment)
         const regulationList = await regulationService.getAllbyEnactmentId(enactment.id);
         res.send(regulationList ? 200 : 404, regulationList);
     }
