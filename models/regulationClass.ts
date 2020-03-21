@@ -2,9 +2,9 @@ import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity("massnahmenklasse")
 export class RegulationClass {
-    @PrimaryGeneratedColumn({ name: "massnahmenID" })
+    @PrimaryGeneratedColumn({ name: "klassenID" })
     public id: number;
 
-    @Column()
+    @Column({ name: "massnahmentyp" })
     public type: string;
 }
