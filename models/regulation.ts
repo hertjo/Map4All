@@ -10,8 +10,8 @@ export class Regulation {
     @Column()
     public info: string;
 
-    @Column()
-    public spezDate: Date;
+    @Column({ name: "spezDatum" })
+    public specDate: Date;
 
     @ManyToOne(() => Enactment, (enactment: Enactment) => enactment.id)
     @JoinColumn({ name: "erlassID" })

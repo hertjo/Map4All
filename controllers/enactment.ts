@@ -6,20 +6,21 @@ import { enactmentService } from '../services/Enactment';
 
 export class EnactmentController implements Controller {
     public initialize(httpServer: HttpServer): void {
-        httpServer.get('state', this.getAll.bind(this));
-        httpServer.get('state/:stateId', this.getById.bind(this));
-        httpServer.get('state-regulations/:stateId', this.getAllbyStateEnactmentId.bind(this));
-        // httpServer.post('regulation/:id/', this.create.bind(this));
-        // httpServer.del('regulation/:id/', this.remove.bind(this));
+        httpServer.get('enactment/state', this.getAllByState.bind(this));
+        httpServer.get('enactment/state/:stateId', this.getByStateId.bind(this));
+        httpServer.get('enactment/state-regulations/:stateId', this.getAllbyStateEnactmentId.bind(this));
+        // TODO endpoints for districts
+        httpServer.post('enactment', this.create.bind(this));
+        //httpServer.del('enactment', this.remove.bind(this));
     }
 
-    private async getAll(req: Request, res: Response): Promise<void> {
-        const enactment = await enactmentService.getAll();
+    private async getAllByState(req: Request, res: Response): Promise<void> {
+        const enactment = await enactmentService.getAllByState();
         res.send(enactment ? 200 : 404, enactment);
     }
 
-    private async getById(req: Request, res: Response): Promise<void> {
-        const enactment = await enactmentService.getById(req.params.stateId);
+    private async getByStateId(req: Request, res: Response): Promise<void> {
+        const enactment = await enactmentService.getByStateId(req.params.stateId);
         res.send(enactment ? 200 : 404, enactment);
     }
 
@@ -29,13 +30,13 @@ export class EnactmentController implements Controller {
         res.send(regulationList ? 200 : 404, regulationList);
     }
 
-    // private async create(req: Request, res: Response): Promise<void> {
-    //     res.send(await regulationService.create(req.body));
-    // }
+    private async create(req: Request, res: Response): Promise<void> {
+        res.send(await enactmentService.create(req.body));
+    }
 
     // private async remove(req: Request, res: Response): Promise<void> {
     //     try {
-    //         await regulationService.delete(req.params.bid);
+    //         await enactmentService.delete(req.params.id);
     //         res.send(200);
     //     }
     //     catch (e) {

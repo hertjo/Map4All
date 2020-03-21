@@ -2,16 +2,16 @@ import { Regulation } from '../models/regulation';
 import { DatabaseProvider } from '../database/index';
 
 export class RegulationService {
-    // public async create(enactment: Enactment): Promise<Enactment> {
-    //     const connection = await DatabaseProvider.getConnection();
+    public async create(regulation: Regulation): Promise<Regulation> {
+        const connection = await DatabaseProvider.getConnection();
 
-    //     const newEnactment = new Enactment();
-    //     newEnactment.enactmentId = regulation.enactmentId;
-    //     newRegulation.info = regulation.info;
-    //     newRegulation.regulationClassId = regulation.regulationClassId;
+        const newRegulation = new Regulation();
+        //newEnactment.enactmentId = regulation.enactmentId;
+        //newRegulation.info = regulation.info;
+        //newRegulation.regulationClassId = regulation.regulationClassId;
 
-    //     return await connection.getRepository(Regulation).save(newEnactment);
-    // }
+        return await connection.getRepository(Regulation).save(newRegulation);
+    }
 
     public async getAll(): Promise<Array<Regulation>> {
         const connection = await DatabaseProvider.getConnection();
@@ -26,7 +26,7 @@ export class RegulationService {
     // TODO check also date in regulation
     public async getAllbyEnactmentId(enactmentId: number): Promise<Array<Regulation>> {
         const connection = await DatabaseProvider.getConnection();
-        return await connection.getRepository(Regulation).find({ where: { enactmentId: enactmentId } });
+        return await connection.getRepository(Regulation).find({ where: { "erlassId": enactmentId } });
     }
 
     // public async delete(id: number): Promise<void> {
