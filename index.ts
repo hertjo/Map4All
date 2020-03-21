@@ -5,8 +5,8 @@ import { DatabaseProvider } from './database/index';
 DatabaseProvider.configure({
     type: 'mysql',
     database: process.env.DATABASE_NAME,
-    username: process.env.DATABASE_USERNAME,
-    password: process.env.DATABASE_PASSWORD,
+    username: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PW,
     host: process.env.DATABASE_HOST,
     port: +process.env.DATABASE_PORT,
     socketPath: process.env.SOCKET_PATH
