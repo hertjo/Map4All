@@ -10,6 +10,9 @@ export class Regulation {
     @Column()
     public info: string;
 
+    @Column()
+    public spezDate: Date;
+
     @ManyToOne(() => Enactment, (enactment: Enactment) => enactment.id)
     @JoinColumn()
     @Column({ name: "erlassID" })

@@ -13,6 +13,7 @@ export interface DatabaseConfiguration {
     password: string;
     database: string;
     ssl?: boolean;
+    socketPath: string;
 }
 
 export class DatabaseProvider {
@@ -32,11 +33,12 @@ export class DatabaseProvider {
             throw new Error('DatabaseProvider is not configured yet.');
         }
 
-        const { type, host, port, username, password, database, ssl } = DatabaseProvider.configuration;
+        const { type, host, port, username, password, database, ssl, socketPath } = DatabaseProvider.configuration;
         DatabaseProvider.connection = await createConnection({
             type, host, port, username, password, database,
             extra: {
-                ssl
+                ssl,
+                socketPath
             },
             entities: [
                 Regulation,

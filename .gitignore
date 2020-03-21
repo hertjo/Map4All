@@ -38,6 +38,8 @@ jspm_packages
 
 .env
 
+build/*
+
 # Node.js
 node_modules
 bunyan

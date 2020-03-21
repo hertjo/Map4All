@@ -1,17 +1,17 @@
 import 'reflect-metadata';
-
 import { ApiServer } from './server/index';
 import { DatabaseProvider } from './database/index';
 
-// TODO Credentials from env
+require('dotenv').config();
+
 DatabaseProvider.configure({
-    type: process.env.DATABASE_TYPE as any || 'mysql',
-    database: process.env.DATABASE_NAME || 'estoque',
-    username: process.env.DATABASE_USERNAME || 'root',
-    password: process.env.DATABASE_PASSWORD || 'Alunos1234',
-    host: process.env.DATABASE_HOST || 'localhost',
-    port: +process.env.DATABASE_PORT || 3306,
-    ssl: !!process.env.USE_SSL
+    type: 'mysql',
+    database: process.env.DATABASE_NAME,
+    username: process.env.DATABASE_USERNAME,
+    password: process.env.DATABASE_PASSWORD,
+    host: process.env.DATABASE_HOST,
+    port: +process.env.DATABASE_PORT,
+    socketPath: process.env.SOCKET_PATH
 });
 
 const server = new ApiServer();

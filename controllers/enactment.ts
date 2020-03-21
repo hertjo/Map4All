@@ -5,7 +5,7 @@ import { regulationService } from '../services/regulation';
 import { enactmentService } from '../services/Enactment';
 import { Regulation } from '../models/regulation';
 
-export class RegulationController implements Controller {
+export class EnactmentController implements Controller {
     public initialize(httpServer: HttpServer): void {
         // TODO
         httpServer.get('state/:stateId', this.getAllbyStateEnactmentId.bind(this));
@@ -35,4 +35,4 @@ export class RegulationController implements Controller {
     // }
 }
 
-export const regulationController = new RegulationController();
+export const enactmentController = new EnactmentController();

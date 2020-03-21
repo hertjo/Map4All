@@ -17,7 +17,7 @@ export class Enactment {
     public endDate: Date;
 
     @Column()
-    public url: URL;
+    public url: string;
 
     @ManyToOne(() => State, (state: State) => state.id)
     @JoinColumn()
