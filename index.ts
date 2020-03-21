@@ -2,8 +2,6 @@ import 'reflect-metadata';
 import { ApiServer } from './server/index';
 import { DatabaseProvider } from './database/index';
 
-require('dotenv').config();
-
 DatabaseProvider.configure({
     type: 'mysql',
     database: process.env.DATABASE_NAME,
