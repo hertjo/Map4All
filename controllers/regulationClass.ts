@@ -1,23 +1,17 @@
 import { Controller } from './controller';
 import { HttpServer } from '../server/httpServer';
 import { Request, Response } from 'restify';
-import { regulationService } from '../services/regulation';
+import { regulationClassService } from '../services/regulationClass';
 
 export class RegulationController implements Controller {
     public initialize(httpServer: HttpServer): void {
-        httpServer.get('regulation', this.getAll.bind(this));
-        httpServer.get('regulation/:stateId', this.getById.bind(this));
+        httpServer.get('regulationClass', this.getAll.bind(this));
         // httpServer.post('regulation/:id/', this.create.bind(this));
         // httpServer.del('regulation/:id/', this.remove.bind(this));
     }
 
     private async getAll(req: Request, res: Response): Promise<void> {
-        const regulation = await regulationService.getAll();
-        res.send(regulation ? 200 : 404, regulation);
-    }
-
-    private async getById(req: Request, res: Response): Promise<void> {
-        const regulation = await regulationService.getById(req.params.stateId);
+        const regulation = await regulationClassService.getAll();
         res.send(regulation ? 200 : 404, regulation);
     }
 

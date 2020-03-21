@@ -1,7 +1,7 @@
-import { Regulation } from '../models/regulation';
+import { RegulationClass } from '../models/regulationClass';
 import { DatabaseProvider } from '../database/index';
 
-export class RegulationService {
+export class RegulationClassService {
     // public async create(enactment: Enactment): Promise<Enactment> {
     //     const connection = await DatabaseProvider.getConnection();
 
@@ -13,26 +13,14 @@ export class RegulationService {
     //     return await connection.getRepository(Regulation).save(newEnactment);
     // }
 
-    public async getAll(): Promise<Array<Regulation>> {
+    public async getAll(): Promise<Array<RegulationClass>> {
         const connection = await DatabaseProvider.getConnection();
-        return connection.getRepository(Regulation).find();
+        return connection.getRepository(RegulationClass).find();
     }
-
-    public async getById(id: number): Promise<Regulation> {
-        const connection = await DatabaseProvider.getConnection();
-        return connection.getRepository(Regulation).findOne(id);
-    }
-
-    // TODO check also date in regulation
-    public async getAllbyEnactmentId(enactmentId: number): Promise<Array<Regulation>> {
-        const connection = await DatabaseProvider.getConnection();
-        return await connection.getRepository(Regulation).find({ where: { enactmentId: enactmentId } });
-    }
-
     // public async delete(id: number): Promise<void> {
     //     const connection = await DatabaseProvider.getConnection();
     //     return await connection.getRepository(Regulation).removeById(id);
     // }
 }
 
-export const regulationService = new RegulationService();
+export const regulationClassService = new RegulationClassService();

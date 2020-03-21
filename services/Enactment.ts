@@ -6,6 +6,7 @@ import { addYears, subYears } from 'date-fns';
 export class EnactmentService {
     private afterDate = (date: Date) => Between(date, addYears(date, 100));
     private beforeDate = (date: Date) => Between(subYears(date, 100), date);
+
     // public async create(enactment: Enactment): Promise<Enactment> {
     //     const connection = await DatabaseProvider.getConnection();
 
@@ -17,13 +18,23 @@ export class EnactmentService {
     //     return await connection.getRepository(Regulation).save(newEnactment);
     // }
 
+    public async getAll(): Promise<Array<Enactment>> {
+        const connection = await DatabaseProvider.getConnection();
+        return connection.getRepository(Enactment).find();
+    }
+
+    public async getById(id: number): Promise<Enactment> {
+        const connection = await DatabaseProvider.getConnection();
+        return connection.getRepository(Enactment).findOne(id);
+    }
+
     public async getByStateId(id: number): Promise<Enactment> {
         const connection = await DatabaseProvider.getConnection();
         return connection.getRepository(Enactment).findOne({
             where: {
-                "startDate": this.afterDate(new Date()),
-                "endDate": this.beforeDate(new Date()) || null,
-                "state": id
+                "startDatum": this.afterDate(new Date()),
+                "endDatum": this.beforeDate(new Date()) || null,
+                "bundeslandID": id
             }
         });
     }
