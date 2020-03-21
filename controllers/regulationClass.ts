@@ -3,7 +3,7 @@ import { HttpServer } from '../server/httpServer';
 import { Request, Response } from 'restify';
 import { regulationClassService } from '../services/regulationClass';
 
-export class RegulationController implements Controller {
+export class RegulationClassController implements Controller {
     public initialize(httpServer: HttpServer): void {
         httpServer.get('regulation-class', this.getAll.bind(this));
         // httpServer.post('regulation/:id/', this.create.bind(this));
@@ -11,8 +11,8 @@ export class RegulationController implements Controller {
     }
 
     private async getAll(req: Request, res: Response): Promise<void> {
-        const regulation = await regulationClassService.getAll();
-        res.send(regulation ? 200 : 404, regulation);
+        const regulationClass = await regulationClassService.getAll();
+        res.send(regulationClass ? 200 : 404, regulationClass);
     }
 
     // private async getAllbyEnactmentId(req: Request, res: Response): Promise<void> {
@@ -35,4 +35,4 @@ export class RegulationController implements Controller {
     // }
 }
 
-export const regulationController = new RegulationController();
+export const regulationClassController = new RegulationClassController();

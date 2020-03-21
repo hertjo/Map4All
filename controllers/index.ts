@@ -1,9 +1,9 @@
 import { RegulationController } from './regulation';
 import { EnactmentController } from './enactment';
-import { RegulationClass } from '../models/regulationClass';
+import { RegulationClassController } from './regulationClass';
 
 export const CONTROLLERS = [
     new RegulationController(),
     new EnactmentController(),
-    new RegulationClass()
+    new RegulationClassController()
 ];
