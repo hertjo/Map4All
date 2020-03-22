@@ -2,16 +2,15 @@ import { RegulationClass } from '../models/regulationClass';
 import { DatabaseProvider } from '../database/index';
 
 export class RegulationClassService {
-    // public async create(enactment: Enactment): Promise<Enactment> {
-    //     const connection = await DatabaseProvider.getConnection();
+    public async create(enactment: RegulationClass): Promise<RegulationClass> {
+        const connection = await DatabaseProvider.getConnection();
 
-    //     const newEnactment = new Enactment();
-    //     newEnactment.enactmentId = regulation.enactmentId;
-    //     newRegulation.info = regulation.info;
-    //     newRegulation.regulationClassId = regulation.regulationClassId;
+        const newRegulationClass = new RegulationClass();
+        newRegulationClass.id = newRegulationClass.id;
+        newRegulationClass.type = newRegulationClass.type;
 
-    //     return await connection.getRepository(Regulation).save(newEnactment);
-    // }
+        return await connection.getRepository(RegulationClass).save(newRegulationClass);
+    }
 
     public async getAll(): Promise<Array<RegulationClass>> {
         const connection = await DatabaseProvider.getConnection();
