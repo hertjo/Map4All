@@ -2,12 +2,12 @@ import { RegulationClass } from '../models/regulationClass';
 import { DatabaseProvider } from '../database/index';
 
 export class RegulationClassService {
-    public async create(enactment: RegulationClass): Promise<RegulationClass> {
+    public async create(regulationClass: RegulationClass): Promise<RegulationClass> {
         const connection = await DatabaseProvider.getConnection();
 
         const newRegulationClass = new RegulationClass();
-        newRegulationClass.id = newRegulationClass.id;
-        newRegulationClass.type = newRegulationClass.type;
+        newRegulationClass.id = regulationClass.id;
+        newRegulationClass.type = regulationClass.type;
 
         return await connection.getRepository(RegulationClass).save(newRegulationClass);
     }
