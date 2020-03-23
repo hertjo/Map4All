@@ -23,7 +23,8 @@
         "ts-node": "^3.3.0",
         "typeorm": "^0.2.24",
         "typescript": "^2.9.2",
-        "date-fns": "^2.11.0"
+        "date-fns": "^2.11.0",
+        "restify-cors-middleware": "^1.1.1"
     },
     "engines": {
         "node": "12",
