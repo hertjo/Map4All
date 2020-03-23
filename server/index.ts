@@ -42,8 +42,8 @@ export class ApiServer implements HttpServer {
         const cors = corsMiddleware({
             preflightMaxAge: 5, //Optional
             origins: ['*'],
-            allowHeaders: ['*', process.env.API_TOKEN],
-            exposeHeaders: ['*', process.env.API_TOKEN]
+            allowHeaders: ['*'],
+            exposeHeaders: ['*']
         })
         this.restify.pre(cors.preflight);
         this.restify.use(cors.actual);

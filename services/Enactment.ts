@@ -1,6 +1,6 @@
 import { DatabaseProvider } from '../database/index';
 import { Enactment } from '../models/enactment';
-import { Between, IsNull } from 'typeorm';
+import { Between, IsNull, DeleteResult } from 'typeorm';
 import { addYears, subYears } from 'date-fns';
 
 export class EnactmentService {
@@ -12,8 +12,12 @@ export class EnactmentService {
 
         const newEnactment = new Enactment();
         newEnactment.id = enactment.id;
-        //newEnactment.info = enactment.info;
-        //newRegulation.regulationClassId = enactment.regulationClassId;
+        newEnactment.date = enactment.date;
+        newEnactment.startDate = enactment.startDate;
+        newEnactment.endDate = enactment.endDate;
+        newEnactment.url = enactment.url;
+        newEnactment.stateId = enactment.stateId;
+        newEnactment.districtId = enactment.districtId;
 
         return await connection.getRepository(Enactment).save(newEnactment);
     }
@@ -44,10 +48,10 @@ export class EnactmentService {
         });
     }
 
-    // public async delete(id: number): Promise<void> {
-    //     const connection = await DatabaseProvider.getConnection();
-    //     return await connection.getRepository(Enactment).removeById();
-    // }
+    public async delete(id: number): Promise<DeleteResult> {
+        const connection = await DatabaseProvider.getConnection();
+        return await connection.getRepository(Enactment).delete(id);
+    }
 }
 
 export const enactmentService = new EnactmentService();

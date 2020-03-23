@@ -7,7 +7,7 @@ export class RegulationClassController implements Controller {
     public initialize(httpServer: HttpServer): void {
         httpServer.get('regulation-class', this.getAll.bind(this));
         httpServer.post('regulation-class', this.create.bind(this));
-        // httpServer.del('regulation/:id/', this.remove.bind(this));
+        httpServer.del('regulation-class/:id', this.remove.bind(this));
     }
 
     private async getAll(req: Request, res: Response): Promise<void> {
@@ -19,15 +19,15 @@ export class RegulationClassController implements Controller {
         res.send(await regulationClassService.create(req.body));
     }
 
-    // private async remove(req: Request, res: Response): Promise<void> {
-    //     try {
-    //         await regulationService.delete(req.params.bid);
-    //         res.send(200);
-    //     }
-    //     catch (e) {
-    //         res.send(500);
-    //     }
-    // }
+    private async remove(req: Request, res: Response): Promise<void> {
+        try {
+            await regulationClassService.delete(req.params.id);
+            res.send(200);
+        }
+        catch (e) {
+            res.send(500);
+        }
+    }
 }
 
 export const regulationClassController = new RegulationClassController();

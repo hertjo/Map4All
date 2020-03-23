@@ -1,5 +1,6 @@
 import { RegulationClass } from '../models/regulationClass';
 import { DatabaseProvider } from '../database/index';
+import { DeleteResult } from 'typeorm';
 
 export class RegulationClassService {
     public async create(regulationClass: RegulationClass): Promise<RegulationClass> {
@@ -16,10 +17,11 @@ export class RegulationClassService {
         const connection = await DatabaseProvider.getConnection();
         return connection.getRepository(RegulationClass).find();
     }
-    // public async delete(id: number): Promise<void> {
-    //     const connection = await DatabaseProvider.getConnection();
-    //     return await connection.getRepository(Regulation).removeById(id);
-    // }
+
+    public async delete(id: number): Promise<DeleteResult> {
+        const connection = await DatabaseProvider.getConnection();
+        return await connection.getRepository(RegulationClass).delete(id);
+    }
 }
 
 export const regulationClassService = new RegulationClassService();
