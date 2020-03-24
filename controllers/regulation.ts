@@ -22,7 +22,12 @@ export class RegulationController implements Controller {
     }
 
     private async create(req: Request, res: Response): Promise<void> {
-        res.send(await regulationService.create(req.body));
+        try {
+            res.send(await regulationService.create(req.body));
+        }
+        catch (e) {
+            res.send(404);
+        }
     }
 
     private async remove(req: Request, res: Response): Promise<void> {

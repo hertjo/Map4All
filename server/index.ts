@@ -3,6 +3,8 @@ import { RequestHandler, Server } from 'restify';
 import * as restify from 'restify';
 import { CONTROLLERS } from '../controllers/index';
 import * as corsMiddleware from 'restify-cors-middleware';
+import * as err from 'restify-errors';
+import restifyOAuth2 from 'restify-oauth2';
 
 export class ApiServer implements HttpServer {
     private restify: Server;
@@ -49,6 +51,22 @@ export class ApiServer implements HttpServer {
         this.restify.use(cors.actual);
         this.restify.use(restify.plugins.queryParser());
         this.restify.use(restify.plugins.bodyParser());
+        this.restify.use(restify.plugins.authorizationParser());
+
+        this.restify.use((req, res, next) => {
+            const users = {
+                admin: {
+                    id: 1,
+                    password: process.env.API_TOKEN
+                }
+            };
+
+            if (req.username !== 'admin' || req.authorization.basic.password !== users[req.username].password) {
+                next(new err.UnauthorizedError());
+            } else {
+                next();
+            }
+        });
 
         this.addControllers();
 

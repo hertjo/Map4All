@@ -32,6 +32,16 @@ export class EnactmentService {
         });
     }
 
+    public async getAllByDistrict(): Promise<Array<Enactment>> {
+        const connection = await DatabaseProvider.getConnection();
+        return connection.getRepository(Enactment).find({
+            where:
+            {
+                "landkreisID": !IsNull()
+            }
+        });
+    }
+
     public async getById(id: number): Promise<Enactment> {
         const connection = await DatabaseProvider.getConnection();
         return connection.getRepository(Enactment).findOne(id);
@@ -44,6 +54,17 @@ export class EnactmentService {
                 "startDatum": this.afterDate(new Date()),
                 "endDatum": this.beforeDate(new Date()) || null,
                 "bundeslandID": id
+            }
+        });
+    }
+
+    public async getByDistrictId(id: number): Promise<Enactment> {
+        const connection = await DatabaseProvider.getConnection();
+        return connection.getRepository(Enactment).findOne({
+            where: {
+                "startDatum": this.afterDate(new Date()),
+                "endDatum": this.beforeDate(new Date()) || null,
+                "landkreisID": id
             }
         });
     }

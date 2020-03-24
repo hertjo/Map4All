@@ -9,11 +9,14 @@ export class EnactmentController implements Controller {
         httpServer.get('enactment/state', this.getAllByState.bind(this));
         httpServer.get('enactment/state/:stateId', this.getByStateId.bind(this));
         httpServer.get('enactment/state/regulations/:stateId', this.getAllbyStateEnactmentId.bind(this));
-        // TODO endpoints for districts
+        httpServer.get('enactment/district', this.getAllByDistrict.bind(this));
+        httpServer.get('enactment/district/:districtId', this.getByDistrictId.bind(this));
+        httpServer.get('enactment/district/regulations/:districtId', this.getAllbyDistrictEnactmentId.bind(this));
         httpServer.post('enactment', this.create.bind(this));
         httpServer.del('enactment/:id', this.remove.bind(this));
     }
 
+    // State section
     private async getAllByState(req: Request, res: Response): Promise<void> {
         const enactment = await enactmentService.getAllByState();
         res.send(enactment ? 200 : 404, enactment);
@@ -31,8 +34,30 @@ export class EnactmentController implements Controller {
         res.send(regulationList ? 200 : 404, regulationList);
     }
 
+    // District section
+    private async getAllByDistrict(req: Request, res: Response): Promise<void> {
+        const enactment = await enactmentService.getAllByDistrict();
+        res.send(enactment ? 200 : 404, enactment);
+    }
+
+    private async getByDistrictId(req: Request, res: Response): Promise<void> {
+        const enactment = await enactmentService.getByDistrictId(req.params.stateId);
+        res.send(enactment ? 200 : 404, enactment);
+    }
+
+    private async getAllbyDistrictEnactmentId(req: Request, res: Response): Promise<void> {
+        const enactment = await enactmentService.getByDistrictId(req.params.stateId);
+        const regulationList = await regulationService.getAllbyEnactmentId(enactment.id);
+        res.send(regulationList ? 200 : 404, regulationList);
+    }
+
     private async create(req: Request, res: Response): Promise<void> {
-        res.send(await enactmentService.create(req.body));
+        try {
+            res.send(await enactmentService.create(req.body));
+        }
+        catch (e) {
+            res.send(404);
+        }
     }
 
     private async remove(req: Request, res: Response): Promise<void> {
