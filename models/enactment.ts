@@ -21,9 +21,9 @@ export class Enactment {
 
     @ManyToOne(() => State, (state: State) => state.id)
     @JoinColumn({ name: "bundeslandID" })
-    public stateId: string;
+    public stateId: number;
 
     @ManyToOne(() => District, (district: District) => district.id)
     @JoinColumn({ name: "landkreisID" })
-    public districtId: string;
+    public districtId: number;
 }

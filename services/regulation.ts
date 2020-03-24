@@ -28,7 +28,6 @@ export class RegulationService {
 
     // TODO check also date in regulation
     public async getAllbyEnactmentId(enactmentId: number): Promise<Array<Regulation>> {
-        console.log(enactmentId);
         const connection = await DatabaseProvider.getConnection();
         return await connection.getRepository(Regulation).find({ where: { "erlassID": enactmentId } });
     }

@@ -29,7 +29,6 @@ export class EnactmentController implements Controller {
 
     private async getAllbyStateEnactmentId(req: Request, res: Response): Promise<void> {
         const enactment = await enactmentService.getByStateId(req.params.stateId);
-        console.log(enactment)
         const regulationList = await regulationService.getAllbyEnactmentId(enactment.id);
         res.send(regulationList ? 200 : 404, regulationList);
     }
