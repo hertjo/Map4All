@@ -13,11 +13,9 @@ export class Regulation {
     @Column({ name: "spezDatum" })
     public specDate: Date;
 
-    @ManyToOne(() => Enactment, (enactment: Enactment) => enactment.id)
-    @JoinColumn({ name: "erlassID", referencedColumnName: "id" })
+    @Column({ name: "erlassID" })
     public enactmentId: number;
 
-    @OneToMany(() => RegulationClass, (regulationClass: RegulationClass) => regulationClass.id)
-    @JoinColumn({ name: "klassenID", referencedColumnName: "id" })
+    @Column({ name: "klassenID" })
     public regulationClassId: number;
 }

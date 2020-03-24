@@ -19,11 +19,9 @@ export class Enactment {
     @Column()
     public url: string;
 
-    @ManyToOne(() => State, (state: State) => state.id)
-    @JoinColumn({ name: "bundeslandID", referencedColumnName: "id" })
+    @Column({ name: "bundeslandID" })
     public stateId: number;
 
-    @ManyToOne(() => District, (district: District) => district.id)
-    @JoinColumn({ name: "landkreisID", referencedColumnName: "id" })
+    @Column({ name: "landkreisID" })
     public districtId: number;
 }

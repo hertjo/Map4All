@@ -27,7 +27,7 @@ export class EnactmentService {
         return connection.getRepository(Enactment).find({
             where:
             {
-                "landkreisID": IsNull()
+                "districtId": 0
             }
         });
     }
@@ -37,7 +37,7 @@ export class EnactmentService {
         return connection.getRepository(Enactment).find({
             where:
             {
-                "landkreisID": !IsNull()
+                "districtId": !0
             }
         });
     }
@@ -49,11 +49,13 @@ export class EnactmentService {
 
     public async getByStateId(id: number): Promise<Enactment> {
         const connection = await DatabaseProvider.getConnection();
+        console.log(this.afterDate(new Date()));
+        console.log(this.beforeDate(new Date()));
         return connection.getRepository(Enactment).findOne({
             where: {
-                "startDatum": this.afterDate(new Date()),
-                "endDatum": this.beforeDate(new Date()) || null,
-                "bundeslandID": id
+                "startDate": this.beforeDate(new Date()),
+                "endDate": this.afterDate(new Date()) || null,
+                "stateId": id
             }
         });
     }
@@ -62,9 +64,9 @@ export class EnactmentService {
         const connection = await DatabaseProvider.getConnection();
         return connection.getRepository(Enactment).findOne({
             where: {
-                "startDatum": this.afterDate(new Date()),
-                "endDatum": this.beforeDate(new Date()) || null,
-                "landkreisID": id
+                "startDate": this.beforeDate(new Date()),
+                "endDate": this.afterDate(new Date()) || null,
+                "districtId": id
             }
         });
     }
