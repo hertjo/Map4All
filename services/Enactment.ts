@@ -1,6 +1,6 @@
 import { DatabaseProvider } from '../database/index';
 import { Enactment } from '../models/enactment';
-import { Between, IsNull, DeleteResult } from 'typeorm';
+import { Between, DeleteResult } from 'typeorm';
 import { addYears, subYears } from 'date-fns';
 
 export class EnactmentService {
@@ -49,11 +49,9 @@ export class EnactmentService {
 
     public async getByStateId(id: number): Promise<Enactment> {
         const connection = await DatabaseProvider.getConnection();
-        console.log(this.afterDate(new Date()));
-        console.log(this.beforeDate(new Date()));
         return connection.getRepository(Enactment).findOne({
             where: {
-                "startDate": this.beforeDate(new Date()),
+                "startDate": this.beforeDate(new Date()) || null,
                 "endDate": this.afterDate(new Date()) || null,
                 "stateId": id
             }
@@ -64,7 +62,7 @@ export class EnactmentService {
         const connection = await DatabaseProvider.getConnection();
         return connection.getRepository(Enactment).findOne({
             where: {
-                "startDate": this.beforeDate(new Date()),
+                "startDate": this.beforeDate(new Date()) || null,
                 "endDate": this.afterDate(new Date()) || null,
                 "districtId": id
             }

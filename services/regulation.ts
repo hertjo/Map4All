@@ -1,8 +1,12 @@
 import { Regulation } from '../models/regulation';
 import { DatabaseProvider } from '../database/index';
-import { DeleteResult } from 'typeorm';
+import { DeleteResult, Between } from 'typeorm';
+import { addYears } from 'date-fns';
+import { groupBy, toPairs } from 'lodash';
 
 export class RegulationService {
+    private afterDate = (date: Date) => Between(date, addYears(date, 100));
+
     public async create(regulation: Regulation): Promise<Regulation> {
         const connection = await DatabaseProvider.getConnection();
 
@@ -26,10 +30,17 @@ export class RegulationService {
         return connection.getRepository(Regulation).findOne(id);
     }
 
-    // TODO check also date in regulation
     public async getAllbyEnactmentId(enactmentId: number): Promise<Array<Regulation>> {
         const connection = await DatabaseProvider.getConnection();
-        return await connection.getRepository(Regulation).find({ where: { "erlassID": enactmentId } });
+        console.log(enactmentId);
+        const regulationList = await connection.getRepository(Regulation).find({
+            where: {
+                "enactmentId": enactmentId//,
+                //"specDate": this.afterDate(new Date()) || null
+            }
+        });
+        console.log(regulationList);
+        return groupBy(regulationList, "regulationClass.type");
     }
 
     public async delete(id: number): Promise<DeleteResult> {

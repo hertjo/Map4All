@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 import { State } from "./state"
 import { District } from "./district"
 
@@ -22,6 +22,20 @@ export class Enactment {
     @Column({ name: "bundeslandID" })
     public stateId: number;
 
+    @OneToOne(() => State, (state: State) => state.id, {
+        cascade: true,
+        eager: true,
+    })
+    @JoinColumn({ name: "bundeslandID" })
+    public state: State;
+
     @Column({ name: "landkreisID" })
     public districtId: number;
+
+    @OneToOne(() => District, (district: District) => district.id, {
+        cascade: true,
+        eager: true,
+    })
+    @JoinColumn({ name: "landkreisID" })
+    public district: District;
 }
