@@ -18,7 +18,7 @@
         "@types/restify": "^5.0.11",
         "date-fns": "^2.11.0",
         "hdb-pool": "^0.1.6",
-        "lodash": "^4.17.15",
+        "lodash": "^4.17.19",
         "nodemon": "^1.19.4",
         "reflect-metadata": "^0.1.13",
         "restify": "^6.4.0",
