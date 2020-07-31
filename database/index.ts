@@ -6,14 +6,13 @@ import { RegulationClass } from '../models/regulationClass';
 import { State } from '../models/state';
 
 export interface DatabaseConfiguration {
-    type: 'mysql';
+    type: 'sap';
     host: string;
     port: number;
     username: string;
     password: string;
     database: string;
-    ssl?: boolean;
-    socketPath: string;
+    ssl_cert: string;
 }
 
 export class DatabaseProvider {
@@ -33,12 +32,11 @@ export class DatabaseProvider {
             throw new Error('DatabaseProvider is not configured yet.');
         }
 
-        const { type, host, port, username, password, database, ssl, socketPath } = DatabaseProvider.configuration;
+        const { type, host, port, username, password, database, ssl_cert } = DatabaseProvider.configuration;
         DatabaseProvider.connection = await createConnection({
             type, host, port, username, password, database,
             extra: {
-                ssl,
-                socketPath
+                ca: ssl_cert
             },
             entities: [
                 Regulation,
@@ -50,6 +48,7 @@ export class DatabaseProvider {
             autoSchemaSync: true
         } as any); // as any to prevent complaining about the object does not fit to MongoConfiguration, which we won't use here
 
+        console.log("test1");
         return DatabaseProvider.connection;
     }
 }

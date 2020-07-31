@@ -32,14 +32,13 @@ export class RegulationService {
 
     public async getAllbyEnactmentId(enactmentId: number): Promise<Array<Regulation>> {
         const connection = await DatabaseProvider.getConnection();
-        console.log(enactmentId);
         const regulationList = await connection.getRepository(Regulation).find({
             where: {
                 "enactmentId": enactmentId//,
                 //"specDate": this.afterDate(new Date()) || null
             }
         });
-        console.log(regulationList);
+        // TODO Sorting
         return groupBy(regulationList, "regulationClass.type");
     }
 

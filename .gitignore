@@ -100,3 +100,5 @@ which
 which.cmd
 sha.js
 app.yaml
+package-lock.json
+cert.pem
